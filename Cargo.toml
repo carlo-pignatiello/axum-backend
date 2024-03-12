@@ -1,0 +1,19 @@
+[package]
+name = "axum-backend"
+version = "0.1.0"
+edition = "2021"
+
+[workspace]
+members = [
+    "entity"
+]
+
+[dependencies]
+entity = { path = "./entity"}
+axum = "0.7.4"
+serde = {version = "1.0.197",  features = ["derive"] }
+serde_json = "1.0.114"
+tokio = {version = "1.36.0", features = ["full"]}
+sea-orm = { version = "0.12", features = [ "sqlx-postgres", "runtime-tokio-rustls", "macros" ] }
+dotenv = "0.15.0"
+chrono = "0.4.35"
