@@ -1,11 +1,12 @@
 // use axum::{routing::get, Router};
-use sea_orm::{Database, DatabaseConnection};
+use sea_orm::{ActiveValue::Set, ActiveValue::NotSet, Database, DatabaseConnection};
 mod errors;
 mod models;
 mod repos;
 mod routes;
 
-use repos::user_repos::get_user;
+use repos::user_repos::{insert_user, get_user};
+use entity::user_account::ActiveModel;
 
 #[tokio::main]
 async fn main() {
@@ -15,7 +16,6 @@ async fn main() {
         Ok(u) => println!("{:?}", u),
         Err(e) => println!("{:?}", e.to_string())
     }
-    
     // build our application with a single route
     // let app = Router::new().route("/", get(|| async { "Hello, World!" }));
 

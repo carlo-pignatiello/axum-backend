@@ -9,3 +9,8 @@ pub async fn get_user(db: &DatabaseConnection, username: &str) -> Result<UserAcc
         .ok_or(DbErr::Custom("Error while fetching user".to_owned()));
     users
 }
+
+pub async fn insert_user(db: &DatabaseConnection, user: UserAccount::ActiveModel) -> Result<i32, DbErr> {
+        let res = UserAccount::Entity::insert(user).exec(db).await?;
+        Ok(res.last_insert_id)
+}
