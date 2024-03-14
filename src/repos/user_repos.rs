@@ -14,3 +14,5 @@ pub async fn insert_user(db: &DatabaseConnection, user: UserAccount::ActiveModel
         let res = UserAccount::Entity::insert(user).exec(db).await?;
         Ok(res.last_insert_id)
 }
+
+
