@@ -1,9 +1,12 @@
+use auth_service::auth_serivce::{create_access_token, verify_jwt_token};
+use jwt::token::verified;
 // use axum::{routing::get, Router};
 use sea_orm::{ActiveValue::Set, ActiveValue::NotSet, Database, DatabaseConnection};
 mod errors;
 mod models;
 mod repos;
 mod routes;
+mod auth_service;
 
 use repos::user_repos::{insert_user, get_user};
 use entity::user_account::ActiveModel;
@@ -16,6 +19,16 @@ async fn main() {
         Ok(u) => println!("{:?}", u),
         Err(e) => println!("{:?}", e.to_string())
     }
+    let token = create_access_token("carlo");
+    println!("{:?}", token);
+    match token {
+        Ok(t) => {
+            let verified = verify_jwt_token("carlo", &t);
+            println!("Verified: {:?}", verified);
+        }
+        Err(e) => panic!("panic")
+    }
+    
     // build our application with a single route
     // let app = Router::new().route("/", get(|| async { "Hello, World!" }));
 
